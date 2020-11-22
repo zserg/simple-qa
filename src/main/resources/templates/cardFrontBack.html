@@ -4,20 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Simple flashcards</title>
+    <link th:href="@{/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
-<h1>
-    <div>
-        <span th:utext="${front}"></span>
+<div class="wrapper">
+    <div class="content">
+        <h1>
+            <div>
+                <span th:text="${front}"></span>
+            </div>
+            <hr>
+            <div>
+                <span th:utext="${back}"></span>
+            </div>
+        </h1>
     </div>
-    <hr>
-    <div>
-        <span th:utext="${back}"></span>
+    <div class="footer">
+        <div>
+            <button type="button" th:onclick="|window.location.href='/cards/'|">Next</button>
+        </div>
     </div>
-    <div>
-        <button type="button" th:onclick="|window.location.href='/cards/'|">Next</button>
-    </div>
-</h1>
+</div>
 
 </body>
