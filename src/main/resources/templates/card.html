@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Simple flashcards</title>
+</head>
+
+<body>
+<h1>
+    <div>
+        <span th:text="${front}"></span>
+    </div>
+    <div>
+        <button type="button" th:onclick="|window.location.href='/cards/${id}'|">Show</button>
+    </div>
+</h1>
+
+</body>
