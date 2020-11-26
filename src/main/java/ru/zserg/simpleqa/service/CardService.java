@@ -2,6 +2,8 @@ package ru.zserg.simpleqa.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
 import ru.zserg.simpleqa.model.Card;
 
@@ -16,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -37,17 +40,21 @@ public class CardService {
                     .map(Path::toString)
                     .filter(f -> f.endsWith(".txt"))
                     .forEach(this::processFile);
+
+            IntStream.range(0, cards.size())
+                    .forEach(i -> cards.get(i).setId(i));
+
+            log.info("cards: {}", cards);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        log.info("cards: {}", cards);
     }
 
     private void processFile(String filePath) {
         try {
             Stream<String> str = Files.lines(Paths.get(filePath));
             List<String> stringList = str.collect(Collectors.toList());
-            List<Card> cardList = parseData(stringList);
+            List<Card> cardList = parseData(stringList, FilenameUtils.getBaseName(filePath));
             cards.addAll(cardList);
         } catch (IOException e) {
             log.error("error processing file: {}", filePath, e);
@@ -58,9 +65,19 @@ public class CardService {
         Random random = new Random();
         int i = random.nextInt(cards.size());
         Card card = cards.get(i);
-        card.setId(i);
         return card;
     }
+
+    public Card getRandomCardFromFile(String fileName) {
+        List<Card> filteredCards = cards.stream()
+                .filter(c -> c.getFileName().equals(fileName))
+                .collect(Collectors.toList());
+        Random random = new Random();
+        int i = random.nextInt(filteredCards.size());
+        Card card = filteredCards.get(i);
+        return card;
+    }
+
 
     public Card getCard(int id) {
         Card card = cards.get(id);
@@ -68,7 +85,7 @@ public class CardService {
         return card;
     }
 
-    public List<Card> parseData(List<String> lines) {
+    public List<Card> parseData(List<String> lines, String tag) {
         List<Card> cardList = new ArrayList<>();
         Card card = new Card();
         List<String> front = new ArrayList<>();
@@ -79,6 +96,7 @@ public class CardService {
             if (line.matches(Q_PATTERN)) {
                 if(state.equals(State.BACK)){
                     card.setBack(String.join("", back));
+                    card.setFileName(tag);
                     cardList.add(card);
                     card = new Card();
                 }
@@ -102,6 +120,7 @@ public class CardService {
         }
 
         card.setBack(String.join("<p>", back));
+        card.setFileName(tag);
         cardList.add(card);
 
         return cardList;

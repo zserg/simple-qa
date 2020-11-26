@@ -24,7 +24,7 @@
     <div class="footer">
         <div>
             <button id="show-btn" type="button">Show</button>
-            <button type="button" onclick="location.href='/cards'">Next</button>
+            <button type="button" th:onclick="|window.location.href='/cards/[[${tag}]]'|">Next</button>
         </div>
     </div>
 </div>
