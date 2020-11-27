@@ -44,7 +44,7 @@ public class CardService {
             IntStream.range(0, cards.size())
                     .forEach(i -> cards.get(i).setId(i));
 
-            log.info("cards: {}", cards);
+//            log.info("cards: {}", cards);
         } catch (IOException e) {
             e.printStackTrace();
         }

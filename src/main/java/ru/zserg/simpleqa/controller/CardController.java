@@ -22,6 +22,7 @@ public class CardController {
         model.addAttribute("front", card.getFront());
         model.addAttribute("back", card.getBack());
         model.addAttribute("id", card.getId());
+        model.addAttribute("tag", card.getFileName());
         return "card";
     }
 
