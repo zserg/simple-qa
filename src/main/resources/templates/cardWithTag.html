@@ -24,18 +24,23 @@
     <div class="footer">
         <div>
             <button id="show-btn" type="button">Show</button>
-            <button type="button" th:onclick="|window.location.href='/cards/[[${tag}]]'|">Next</button>
+            <button type="button" th:data-thing="${tag}" th:onclick="visitPage(this.getAttribute('data-thing'));">Next</button>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
+    function visitPage(tag){
+        window.location='/cards/' + tag;
+    }
+
 function show() {
   console.log("yes");
   document.getElementById("back").style.visibility = "visible";
 }
 console.log("el" + document.getElementById("show-btn"));
   document.getElementById("show-btn").addEventListener("click", show);
+
 
 </script>
 
