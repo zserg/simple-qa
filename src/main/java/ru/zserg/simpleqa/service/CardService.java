@@ -95,7 +95,7 @@ public class CardService {
         for (String line : lines) {
             if (line.matches(Q_PATTERN)) {
                 if(state.equals(State.BACK)){
-                    card.setBack(String.join("", back));
+                    card.setBack(String.join("<br>", back));
                     card.setFileName(tag);
                     cardList.add(card);
                     card = new Card();
@@ -105,7 +105,7 @@ public class CardService {
                 front = new ArrayList<>();
                 continue;
             } else if (line.matches(A_PATTERN)) {
-                card.setFront(String.join("", front));
+                card.setFront(String.join("<br>", front));
                 state = State.BACK;
                 back = new ArrayList<>();
                 continue;
@@ -119,7 +119,7 @@ public class CardService {
             }
         }
 
-        card.setBack(String.join("<p>", back));
+        card.setBack(String.join("<br>", back));
         card.setFileName(tag);
         cardList.add(card);
 

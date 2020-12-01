@@ -13,18 +13,18 @@
     <div class="content">
         <h1>
             <div id="front">
-                <span th:text="${front}+'   (#'+${tag}+')'"></span>
+                <span th:utext="${front}+'   (#'+${tag}+')'"></span>
             </div>
             <hr>
             <div id="back" style="visibility:hidden">
-                <span th:text="${back}"></span>
+                <span th:utext="${back}"></span>
             </div>
         </h1>
     </div>
     <div class="footer">
         <div>
-            <button id="show-btn" style="width: 50%; height: 10%" type="button">Show</button>
-            <button type="button" style="width: 50%; height: 10%" th:data-thing="${tag}" th:onclick="visitPage(this.getAttribute('data-thing'));">Next</button>
+            <button id="show-btn" style="width: 45%; height: 15%" type="button">Show</button>
+            <button type="button" style="width: 45%; height: 15%" th:data-thing="${tag}" th:onclick="visitPage(this.getAttribute('data-thing'));">Next</button>
         </div>
     </div>
 </div>

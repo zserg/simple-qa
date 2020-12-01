@@ -13,11 +13,11 @@
     <div class="content">
         <h1>
             <div id="front">
-                <span th:text="${front}+'   (#'+${tag}+')'"></span>
+                <span th:utext="${front}+'   (#'+${tag}+')'"></span>
             </div>
             <hr>
             <div id="back" style="visibility:hidden">
-                <span th:text="${back}"></span>
+                <span th:utext="${back}"></span>
             </div>
         </h1>
     </div>
